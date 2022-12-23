@@ -1,16 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgIconsModule } from '@ng-icons/core';
+import {
+  ionMail,
+  ionEye,
+  ionEyeOff,
+  ionLocation,
+  ionLogoGithub,
+} from '@ng-icons/ionicons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SigninComponent } from './pages/signin/signin.component';
-import { SignupComponent } from './pages/signup/signup.component';
+import { SigninComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TravelComponent } from './pages/travel/travel.component';
-import { ionMail, ionEye, ionEyeOff } from '@ng-icons/ionicons';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +27,21 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignupComponent,
     HomeComponent,
     TravelComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({ ionMail, ionEye, ionEyeOff }),
+    HttpClientModule,
+    NgIconsModule.withIcons({
+      ionMail,
+      ionEye,
+      ionEyeOff,
+      ionLocation,
+      ionLogoGithub,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

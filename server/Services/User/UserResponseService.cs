@@ -2,7 +2,7 @@ namespace FlightAdvisorService.Services;
 
 public class UserResponseService<T>
 {
-    public string Message { get; set; } = "";
-    public T? Data;
-    public bool Success { get; set; }
+    public T? Data { get; set; }
+    public string? Message { get; set; } = String.Empty;
+    public bool Success { get; set; } = true;
 }

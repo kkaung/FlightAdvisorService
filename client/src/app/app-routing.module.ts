@@ -1,17 +1,19 @@
-import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
+
+import { HomeComponent } from './pages/home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './pages/signup/signup.component';
-import { SigninComponent } from './pages/signin/signin.component';
+import { SignupComponent } from './pages/register/register.component';
+import { SigninComponent } from './pages/login/login.component';
 import { TravelComponent } from './pages/travel/travel.component';
+import { AuthGuard } from './helpers';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'register', component: SignupComponent },
-  { path: 'signin', component: SigninComponent },
+  { path: 'login', component: SigninComponent },
   { path: 'travel', component: TravelComponent },
-  // redirect to home
-  //   { path: '**', redirectTo: '' },
+  //   redirect to home
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

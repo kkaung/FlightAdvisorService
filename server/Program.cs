@@ -1,3 +1,4 @@
+global using Microsoft.AspNetCore.Mvc;
 global using FlightAdvisorService.DTOs;
 global using FlightAdvisorService.Models;
 global using FlightAdvisorService.Data;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 

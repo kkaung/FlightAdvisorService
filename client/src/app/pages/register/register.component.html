@@ -1,0 +1,114 @@
+<div class="max-w-[600px] mx-auto">
+  <div class="card">
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+      <form [formGroup]="form" (submit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label class="form-label" for="firstName">First Name</label>
+          <input
+            autofocus
+            class="form-control"
+            formControlName="firstName"
+            id="firstName"
+            required
+            type="text"
+          />
+          <div
+            *ngIf="isSubmitted && f.firstName.errors"
+            class="block invalid-feedback"
+            id="password"
+          >
+            <div *ngIf="this.f.firstName.errors['required']">
+              First name is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input
+            class="form-control"
+            formControlName="lastName"
+            id="lastName"
+            required
+            type="text"
+          />
+          <div
+            *ngIf="isSubmitted && f.lastName.errors"
+            class="block invalid-feedback"
+            id="password"
+          >
+            <div *ngIf="this.f.lastName.errors['required']">
+              Last name is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group my-3">
+          <label class="form-label" for="username">Username</label>
+          <div class="input-group">
+            <span class="input-group-text flex items-center">
+              <ng-icon
+                name="ionMail"
+                class="text-secondary text-2xl"
+                style="line-height: 0"
+              ></ng-icon>
+            </span>
+            <input
+              class="form-control"
+              email
+              formControlName="username"
+              id="username"
+              required
+              type="email"
+            />
+            <div
+              *ngIf="isSubmitted && f.username.errors"
+              class="block invalid-feedback"
+              id="username"
+            >
+              <div *ngIf="this.f.username.errors['required']">
+                Username is required
+              </div>
+              <div *ngIf="f.username.errors['email']">
+                Enter a valid email address
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-group">
+            <input
+              [type]="passwordShow ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              id="password"
+            />
+            <span class="input-group-text">
+              <ng-icon
+                [name]="passwordShow ? 'ionEye' : 'ionEyeOff'"
+                class="text-secondary text-2xl cursor-pointer"
+                style="line-height: 0"
+                (click)="togglePasswordShow()"
+              ></ng-icon>
+            </span>
+            <div
+              *ngIf="isSubmitted && f.password.errors"
+              class="block invalid-feedback"
+              id="password"
+            >
+              <div *ngIf="this.f.password.errors['required']">
+                Password is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-3">
+          <button  type="submit" class="btn btn-primary">Register</button>
+          <button type="button" class="btn btn-light mx-2" routerLink="">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

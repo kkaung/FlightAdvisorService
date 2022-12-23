@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace FlightAdvisorService.Controllers;
 
 [ApiController]
-[Route("api")]
+[Route("public")]
 public class AuthController : ControllerBase
 {
     private IAuthService _authService;
@@ -27,10 +25,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AuthResponseService<string>>> Login(LoginDtos body) {
+    public async Task<ActionResult<AuthResponseService<string>>> Login(LoginDtos body)
+    {
         var response = await _authService.Login(body);
 
-        if(!response.Success) 
+        if (!response.Success)
             return Unauthorized(response);
 
         return Ok(response);

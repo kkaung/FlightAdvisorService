@@ -1,6 +1,6 @@
 namespace FlightAdvisorService.Services;
 
-public class AuthResponseService<T>
+public class CityResponseService<T>
 {
     public T? Data { get; set; }
     public string? Message { get; set; } = String.Empty;
