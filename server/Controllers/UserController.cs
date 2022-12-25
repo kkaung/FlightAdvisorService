@@ -22,9 +22,38 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public string GetUser(int id)
+    public async Task<ActionResult<UserResponseService<GetUserDto>>> GetUser(int id)
     {
-        Console.WriteLine("Hello");
-        return "Hello World";
+        var response = await _userService.GetUser(id);
+
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<UserResponseService<GetUserDto>>> UpdateUser(
+        int id,
+        UpdateUserDto body
+    )
+    {
+        var response = await _userService.UpdateUser(id, body);
+
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<UserResponseService<int>>> DeleteUser(int id)
+    {
+        var response = await _userService.DeleteUser(id);
+
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
     }
 }

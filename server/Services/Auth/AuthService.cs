@@ -11,12 +11,19 @@ public class AuthService : IAuthService
     private DataContext _context;
     private readonly IMapper _mapper;
     private IConfiguration _configuration;
+    private Hash _hash;
 
-    public AuthService(DataContext dataContext, IMapper mapper, IConfiguration configuration)
+    public AuthService(
+        DataContext dataContext,
+        IMapper mapper,
+        IConfiguration configuration,
+        Hash hash
+    )
     {
         _context = dataContext;
         _mapper = mapper;
         _configuration = configuration;
+        _hash = hash;
     }
 
     public async Task<AuthResponseService<ResponseRegisterDto>> Register(RegisterDto body)
@@ -34,7 +41,7 @@ public class AuthService : IAuthService
         var newUser = _mapper.Map<User>(body);
 
         // Hash the password
-        HashPassword(body.Password, out byte[] passwordSalt, out byte[] passwordHash);
+        _hash.HashPassword(body.Password, out byte[] passwordSalt, out byte[] passwordHash);
 
         newUser.PasswordSalt = passwordSalt;
         newUser.PasswordHash = passwordHash;
@@ -65,7 +72,7 @@ public class AuthService : IAuthService
         }
         else
         {
-            response.Data = CreateJwtToken(user);
+            response.Data = GenerateJwtToken(user);
         }
 
         return response;
@@ -80,15 +87,6 @@ public class AuthService : IAuthService
         return false;
     }
 
-    private void HashPassword(string password, out byte[] passwordSalt, out byte[] passwordHash)
-    {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512())
-        {
-            passwordSalt = hmac.Key;
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        }
-    }
-
     private Boolean ValidatePassword(string password, byte[] passwordSalt, byte[] passwordHash)
     {
         using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
@@ -98,7 +96,7 @@ public class AuthService : IAuthService
         }
     }
 
-    private string CreateJwtToken(User user)
+    private string GenerateJwtToken(User user)
     {
         var claims = new List<Claim>
         {

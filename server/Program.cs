@@ -15,7 +15,9 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddCors();
+builder.Services.AddTransient<Hash>();
 
 var app = builder.Build();
 

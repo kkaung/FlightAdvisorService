@@ -53,10 +53,9 @@ export class SignupComponent implements OnInit {
     const body = {
       firstName: this.f.firstName.value,
       lastName: this.f.lastName.value,
-      username: this.f.lastName.value,
+      username: this.f.username.value,
       password: this.f.password.value,
     };
-
 
     this.authService.register(body).subscribe({
       next: () => this.router.navigateByUrl('/login'),

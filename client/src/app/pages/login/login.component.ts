@@ -62,7 +62,7 @@ export class SigninComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: (res) => {
-          const error = res.error.message;
+          const error = res.error?.message;
           this.alertService.error(error);
           this.isLoading = false;
         },

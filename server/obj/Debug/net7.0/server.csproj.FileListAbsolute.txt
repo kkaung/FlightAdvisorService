@@ -73,3 +73,11 @@
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/appsettings.Development.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/appsettings.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/FlightAdvisorService/bin/Debug/net7.0/appsettings.Development.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/FlightAdvisorService/bin/Debug/net7.0/appsettings.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/FlightAdvisorService/bin/Debug/net7.0/server.deps.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/FlightAdvisorService/bin/Debug/net7.0/server.runtimeconfig.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/server.deps.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/server.runtimeconfig.json

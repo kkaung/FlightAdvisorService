@@ -9,9 +9,9 @@ import { AuthGuard } from './helpers';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'travel', component: TravelComponent, canActivate: [AuthGuard] },
   { path: 'register', component: SignupComponent },
   { path: 'login', component: SigninComponent },
-  { path: 'travel', component: TravelComponent },
   //   redirect to home
   { path: '**', redirectTo: '' },
 ];

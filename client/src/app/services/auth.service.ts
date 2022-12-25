@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
-import { AuthResponse, Login, Register, User } from '../models';
+import { AuthResponse, Login, Register, User } from '../types';
 
 @Injectable({
   providedIn: 'root',
