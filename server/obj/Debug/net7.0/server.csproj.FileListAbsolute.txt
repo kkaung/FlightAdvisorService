@@ -81,3 +81,8 @@
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/FlightAdvisorService/bin/Debug/net7.0/server.runtimeconfig.json
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/server.deps.json
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/net7.0/server.runtimeconfig.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Data/AirpotSeed.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Data/CitySeed.json
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

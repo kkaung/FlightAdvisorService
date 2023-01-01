@@ -1,0 +1,58 @@
+[
+    {
+        "name": "Sydney Domestic Airport",
+        "iata": "SYD",
+        "icao": "SYYD",
+        "latitude": 33.94,
+        "longitude": 151.17,
+        "country": "AU"
+    },
+    {
+        "name": "Melbourne Domestic Airport",
+        "iata": "MEL",
+        "icao": "YMML",
+        "latitude": 37.67,
+        "longitude": 144.84,
+        "country": "AU"
+    },
+    {
+        "name": "Brisbane Airport",
+        "iata": "BNE",
+        "icao": "YBBN",
+        "latitude": 27.38,
+        "longitude": 153.13,
+        "country": "AU"
+    },
+    {
+        "name": "Perth Airport",
+        "iata": "PER",
+        "icao": "YPPH",
+        "latitude": 31.94,
+        "longitude": 115.97,
+        "country": "AU"
+    },
+    {
+        "name": "Darwin Airport",
+        "iata": "DRW",
+        "icao": "YPDN",
+        "latitude": 12.41,
+        "longitude": 130.87,
+        "country": "AU"
+    },
+    {
+        "name": "Hobart Airport",
+        "iata": "HBA",
+        "icao": "YMHB",
+        "latitude": 42.84,
+        "longitude": 147.51,
+        "country": "AU"
+    },
+    {
+        "name": "Canberra Airport",
+        "iata": "CBR",
+        "icao": "YSCB",
+        "latitude": 35.31,
+        "longitude": 149.2,
+        "country": "AU"
+    }
+]

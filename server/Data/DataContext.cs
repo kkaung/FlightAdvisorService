@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlightAdvisorService.Data;
 
@@ -11,13 +12,29 @@ public class DataContext : DbContext
 
     public string DbPath { get; }
 
-    public DataContext()
+    public DataContext(DbContextOptions<DataContext> dbContextOptions)
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "flightAdvisor.db");
+        var fileName = "flightAdvisor.db!";
+
+        DbPath = Path.Join(path, fileName);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options) =>
         options.UseSqlite($"Data Source={DbPath}");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // DeleteDBFile();
+    }
+
+    private void DeleteDBFile()
+    {
+        if (File.Exists(DbPath))
+        {
+            File.Delete(DbPath);
+            Console.WriteLine("Successfully deleted!");
+        }
+    }
 }

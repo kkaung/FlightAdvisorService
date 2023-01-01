@@ -8,14 +8,14 @@ public interface ICityService
     Task<CityResponseService<GetCommetDto>> CreateCommentInCity(int id, CreateCommentDto body);
 
     Task<CityResponseService<GetCommetDto>> UpdateCommentInCity(
-        int id,
         int cid,
+        int cmid,
         UpdateCommnetDto body
     );
 
     Task<CityResponseService<GetCommetDto>> DeleteCommentInCity(int id, int cid);
 
-    Task<CityResponseService<GetCityDto>> SearchCity();
+    Task<CityResponseService<GetCityDto>> SearchCity(SearchCityDto body);
 
     Task<CityResponseService<GetCityDto>> GetTravel();
 

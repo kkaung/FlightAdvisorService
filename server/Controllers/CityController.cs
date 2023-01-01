@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace FlightAdvisorService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("/api/cities")]
 public class CityController : ControllerBase
@@ -49,33 +52,76 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost("{id}/comments")]
+    [HttpPost("{cid}/comments")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<CityResponseService<GetCommetDto>>> CreateCommentInCity(int id, CreateCommentDto body)
+    public async Task<ActionResult<CityResponseService<GetCommetDto>>> CreateCommentInCity(
+        int cid,
+        CreateCommentDto body
+    )
     {
-        // var response = await _cityService
+        var response = await _cityService.CreateCommentInCity(cid, body);
 
-        throw new NotImplementedException();
+        return Ok(response);
     }
 
-    [HttpPut("{id}/comments/{cid}")]
+    [HttpPut("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
-    public void UpdateCID() { }
+    [ProducesResponseType(404)]
+    public async Task<ActionResult<CityResponseService<GetCommetDto>>> UpdateCommentInCity(
+        int cid,
+        int cmid,
+        UpdateCommnetDto body
+    )
+    {
+        var response = await _cityService.UpdateCommentInCity(cid, cmid, body);
 
-    [HttpDelete("{id}/comments/{cid}")]
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
+    }
+
+    [HttpDelete("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
-    public void DeleteCID() { }
+    [ProducesResponseType(404)]
+    public async Task<ActionResult<CityResponseService<GetCommetDto>>> DeleteComment(
+        int cid,
+        int cmid
+    )
+    {
+        var response = await _cityService.DeleteCommentInCity(cid, cmid);
+
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
+    }
 
     [HttpPost("search")]
     [ProducesResponseType(200)]
-    public void SearchCities() { }
+    [ProducesResponseType(404)]
+    public async Task<ActionResult<CityResponseService<GetCityDto>>> SearchCity(SearchCityDto body)
+    {
+        var response = await _cityService.SearchCity(body);
+
+        if (!response.Success)
+            return NotFound(response);
+
+        return Ok(response);
+    }
 
     [HttpGet("travel")]
     [ProducesResponseType(200)]
-    public void GetTravel() { }
+    public void GetTravel()
+    {
+        // var response = await _cityService.SearchCity();
+    }
 
     [HttpGet("upcoming")]
     [ProducesResponseType(200)]
-    public void GetUpcoming() { }
+    public async Task GetUpcoming()
+    {
+        var response = await _cityService.GetUpcomingTrips();
+    }
 }

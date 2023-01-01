@@ -6,4 +6,6 @@ public class GetCityDto
     public string Name { get; set; } = String.Empty;
     public string Description { get; set; } = String.Empty;
     public string Country { get; set; } = "AU";
+    public List<Ariport>? Airports { get; set; }
+    public List<Comment>? Comments { get; set; }
 }

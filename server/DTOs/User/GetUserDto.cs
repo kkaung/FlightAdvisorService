@@ -6,4 +6,5 @@ public class GetUserDto
     public string FirstName { get; set; } = String.Empty;
     public string LastName { get; set; } = String.Empty;
     public string Email { get; set; } = String.Empty;
+    public Role Role { get; set; } = Role.User;
 }

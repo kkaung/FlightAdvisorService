@@ -9,5 +9,9 @@ public class AutoMapperProfile : Profile
         CreateMap<User, GetUserDto>();
         CreateMap<City, GetCityDto>();
         CreateMap<CreateCityDto, City>();
+        CreateMap<CreateAirportDto, Ariport>();
+        CreateMap<Ariport, GetAirportDto>();
+        CreateMap<Comment, GetCommetDto>().ReverseMap();
+        CreateMap<CreateCommentDto, Comment>().ReverseMap();
     }
 }

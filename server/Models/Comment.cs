@@ -1,6 +1,6 @@
-namespace FlightAdvisorService.DTOs;
+namespace FlightAdvisorService.Models;
 
-public class GetCommetDto
+public class Comment
 {
     public int Id { get; set; }
     public string Body { get; set; } = String.Empty;

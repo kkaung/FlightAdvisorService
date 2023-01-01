@@ -2,5 +2,5 @@ namespace FlightAdvisorService.DTOs;
 
 public class UpdateCommnetDto
 {
-    public int Id { get; set; }
+    public string Body { get; set; } = String.Empty;
 }

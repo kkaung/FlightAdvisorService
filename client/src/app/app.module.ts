@@ -19,6 +19,7 @@ import { TravelComponent } from './pages/travel/travel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/alert/alert.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AlertComponent } from './components/alert/alert.component';
     HomeComponent,
     TravelComponent,
     AlertComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,7 @@ import { AuthResponse, Login, Register, User } from '../types';
   providedIn: 'root',
 })
 export class AuthService {
-  private API_URL = 'http://localhost:5265/public';
+  private API_URL = 'http://localhost:3000/public';
 
   private userSubject?: BehaviorSubject<User | null>;
   public user?: Observable<User | null>;

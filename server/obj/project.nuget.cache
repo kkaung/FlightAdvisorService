@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "lCXBbX+oVdYD/k8YhHvWWqsiFhpvJsjSc2bu4WgL3I47d89jRdzRVOK3VAdLy9diNKFftk8uVgxiscroIbhd8g==",
+  "dgSpecHash": "2Php0AhRcRq3DR60A+9Bv7zLLqTBLK/F2s3PLtwwSwEsbGV8v09AhSLarGHp33KBWkxl/LKLc/eYHrVCaIvjIg==",
   "success": true,
   "projectFilePath": "/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/server.csproj",
   "expectedPackageFiles": [
     "/Users/moongoblin/.nuget/packages/automapper/12.0.0/automapper.12.0.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.0/automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/moongoblin/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.1/microsoft.aspnetcore.authentication.jwtbearer.7.0.1.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.aspnetcore.openapi/7.0.0/microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.data.sqlite.core/7.0.1/microsoft.data.sqlite.core.7.0.1.nupkg.sha512",
@@ -31,6 +32,8 @@
     "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.abstractions/6.25.1/microsoft.identitymodel.abstractions.6.25.1.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.25.1/microsoft.identitymodel.jsonwebtokens.6.25.1.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.logging/6.25.1/microsoft.identitymodel.logging.6.25.1.nupkg.sha512",
+    "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.protocols/6.15.1/microsoft.identitymodel.protocols.6.15.1.nupkg.sha512",
+    "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.15.1/microsoft.identitymodel.protocols.openidconnect.6.15.1.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.identitymodel.tokens/6.25.1/microsoft.identitymodel.tokens.6.25.1.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
