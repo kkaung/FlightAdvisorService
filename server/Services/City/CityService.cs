@@ -16,9 +16,9 @@ public class CityService : ICityService
         _httpContextAccess = httpContextAccess;
     }
 
-    public async Task<CityResponseService<List<GetCityDto>>> GetCities()
+    public async Task<ServiceResponse<List<GetCityDto>>> GetCities()
     {
-        var response = new CityResponseService<List<GetCityDto>>();
+        var response = new ServiceResponse<List<GetCityDto>>();
 
         var cities = await _context.Cities
             .Include(c => c.Airports)
@@ -30,9 +30,9 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetCityDto>> CreateCity(CreateCityDto body)
+    public async Task<ServiceResponse<GetCityDto>> CreateCity(CreateCityDto body)
     {
-        var response = new CityResponseService<GetCityDto>();
+        var response = new ServiceResponse<GetCityDto>();
 
         if (await CityExists(body.Name))
         {
@@ -51,12 +51,12 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetAirportDto>> CreateAirportInCity(
+    public async Task<ServiceResponse<GetAirportDto>> CreateAirportInCity(
         int cid,
         CreateAirportDto body
     )
     {
-        var response = new CityResponseService<GetAirportDto>();
+        var response = new ServiceResponse<GetAirportDto>();
 
         if (await AirportExists(body.Name))
         {
@@ -85,12 +85,12 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetCommetDto>> CreateCommentInCity(
+    public async Task<ServiceResponse<GetCommetDto>> CreateCommentInCity(
         int cid,
         CreateCommentDto body
     )
     {
-        var response = new CityResponseService<GetCommetDto>();
+        var response = new ServiceResponse<GetCommetDto>();
 
         var newComment = _mapper.Map<Comment>(body);
         newComment.CityId = cid;
@@ -104,13 +104,13 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetCommetDto>> UpdateCommentInCity(
+    public async Task<ServiceResponse<GetCommetDto>> UpdateCommentInCity(
         int cid,
         int cmid,
         UpdateCommnetDto body
     )
     {
-        var response = new CityResponseService<GetCommetDto>();
+        var response = new ServiceResponse<GetCommetDto>();
 
         var comment = await _context.Comments.FirstOrDefaultAsync(
             c => (c.CityId == cid && c.Id == cmid)
@@ -133,11 +133,13 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetCommetDto>> DeleteCommentInCity(int cid, int cmid)
+    public async Task<ServiceResponse<GetCommetDto>> DeleteCommentInCity(int cid, int cmid)
     {
-        var response = new CityResponseService<GetCommetDto>();
+        var response = new ServiceResponse<GetCommetDto>();
 
-        var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == cmid && c.CityId == cid);
+        var comment = await _context.Comments.FirstOrDefaultAsync(
+            c => c.Id == cmid && c.CityId == cid
+        );
 
         if (comment is null)
         {
@@ -154,31 +156,27 @@ public class CityService : ICityService
         return response;
     }
 
-    public async Task<CityResponseService<GetCityDto>> SearchCity(SearchCityDto body)
+    public async Task<ServiceResponse<List<GetCityDto>>> SearchCity(SearchCityDto body, int cLimit)
     {
-        var response = new CityResponseService<GetCityDto>();
+        var response = new ServiceResponse<List<GetCityDto>>();
 
-        var city = await _context.Cities.FirstOrDefaultAsync(
-            c => c.Name.ToLower() == body.Name.ToLower()
-        );
+        var cities = await _context.Cities
+            .Include(c => c.Airports)
+            .Include(c => c.Comments)
+            .Where(c => c.Name.ToLower().Contains(body.ByName.ToLower()))
+            .ToListAsync();
 
-        if (city is null)
-        {
-            response.Success = false;
-            response.Message = "City not found";
-        }
-
-        response.Data = _mapper.Map<GetCityDto>(city);
+        response.Data = cities.Select(c => _mapper.Map<GetCityDto>(c)).ToList();
 
         return response;
     }
 
-    public Task<CityResponseService<GetCityDto>> GetTravel()
+    public Task<ServiceResponse<GetCityDto>> GetTravel()
     {
         throw new NotImplementedException();
     }
 
-    public Task<CityResponseService<GetCityDto>> GetUpcomingTrips()
+    public Task<ServiceResponse<GetCityDto>> GetUpcomingTrips()
     {
         throw new NotImplementedException();
     }

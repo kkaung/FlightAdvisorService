@@ -2,8 +2,8 @@ namespace FlightAdvisorService.Services;
 
 public interface IUserService
 {
-    Task<UserResponseService<List<GetUserDto>>> GetUsers();
-    Task<UserResponseService<GetUserDto>> GetUser(int id);
-    Task<UserResponseService<GetUserDto>> UpdateUser(int id, UpdateUserDto body);
-    Task<UserResponseService<int>> DeleteUser(int id);
+    Task<ServiceResponse<List<GetUserDto>>> GetUsers();
+    Task<ServiceResponse<GetUserDto>> GetUser(int id);
+    Task<ServiceResponse<GetUserDto>> UpdateUser(int id, UpdateUserDto body);
+    Task<ServiceResponse<int>> DeleteUser(int id);
 }

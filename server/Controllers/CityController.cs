@@ -16,7 +16,7 @@ public class CityController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(200)]
-    public async Task<ActionResult<CityResponseService<List<GetCityDto>>>> GetCities()
+    public async Task<ActionResult<ServiceResponse<List<GetCityDto>>>> GetCities()
     {
         var response = await _cityService.GetCities();
 
@@ -26,7 +26,7 @@ public class CityController : ControllerBase
     [HttpPost]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<CityResponseService<GetCityDto>>> CreateCity(CreateCityDto body)
+    public async Task<ActionResult<ServiceResponse<GetCityDto>>> CreateCity(CreateCityDto body)
     {
         var response = await _cityService.CreateCity(body);
 
@@ -39,7 +39,7 @@ public class CityController : ControllerBase
     [HttpPost("{id}/airports")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<CityResponseService<GetAirportDto>>> CreateAirportInCity(
+    public async Task<ActionResult<ServiceResponse<GetAirportDto>>> CreateAirportInCity(
         int id,
         CreateAirportDto body
     )
@@ -55,7 +55,7 @@ public class CityController : ControllerBase
     [HttpPost("{cid}/comments")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<CityResponseService<GetCommetDto>>> CreateCommentInCity(
+    public async Task<ActionResult<ServiceResponse<GetCommetDto>>> CreateCommentInCity(
         int cid,
         CreateCommentDto body
     )
@@ -68,7 +68,7 @@ public class CityController : ControllerBase
     [HttpPut("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<CityResponseService<GetCommetDto>>> UpdateCommentInCity(
+    public async Task<ActionResult<ServiceResponse<GetCommetDto>>> UpdateCommentInCity(
         int cid,
         int cmid,
         UpdateCommnetDto body
@@ -85,10 +85,7 @@ public class CityController : ControllerBase
     [HttpDelete("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<CityResponseService<GetCommetDto>>> DeleteComment(
-        int cid,
-        int cmid
-    )
+    public async Task<ActionResult<ServiceResponse<GetCommetDto>>> DeleteComment(int cid, int cmid)
     {
         var response = await _cityService.DeleteCommentInCity(cid, cmid);
 
@@ -98,12 +95,16 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
+    [AllowAnonymous]
     [HttpPost("search")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<CityResponseService<GetCityDto>>> SearchCity(SearchCityDto body)
+    public async Task<ActionResult<ServiceResponse<List<GetCityDto>>>> SearchCity(
+        [FromQuery(Name = "cLimit")] string? cLimit,
+        SearchCityDto body
+    )
     {
-        var response = await _cityService.SearchCity(body);
+        var response = await _cityService.SearchCity(body, Convert.ToInt32(cLimit));
 
         if (!response.Success)
             return NotFound(response);

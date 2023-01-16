@@ -1,49 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIconsModule } from '@ng-icons/core';
-import {
-  ionMail,
-  ionEye,
-  ionEyeOff,
-  ionLocation,
-  ionLogoGithub,
-} from '@ng-icons/ionicons';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SigninComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/register/register.component';
-import { HomeComponent } from './pages/home/home.component';
-import { TravelComponent } from './pages/travel/travel.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
+import { TravelComponent } from './components/travel/travel.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AlertComponent } from './components/alert/alert.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AlertComponent } from './components/shared/alert/alert.component';
+import { AuthModule } from './components/auth/auth.module';
+import { NgIconsModule } from '@ng-icons/core';
+import { ionLogoGithub } from '@ng-icons/ionicons';
+import { CityModule } from './components/city/city.module';
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SigninComponent,
-    SignupComponent,
-    HomeComponent,
-    TravelComponent,
-    AlertComponent,
-    DashboardComponent,
-  ],
+  declarations: [AppComponent, AlertComponent, HomeComponent, TravelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    NgIconsModule.withIcons({
-      ionMail,
-      ionEye,
-      ionEyeOff,
-      ionLocation,
-      ionLogoGithub,
-    }),
+    AuthModule,
+    CityModule,
+    SharedModule,
+    NgIconsModule.withIcons({ ionLogoGithub }),
   ],
   providers: [],
   bootstrap: [AppComponent],

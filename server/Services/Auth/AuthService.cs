@@ -26,9 +26,9 @@ public class AuthService : IAuthService
         _hash = hash;
     }
 
-    public async Task<AuthResponseService<ResponseRegisterDto>> Register(RegisterDto body)
+    public async Task<ServiceResponse<ResponseRegisterDto>> Register(RegisterDto body)
     {
-        var response = new AuthResponseService<ResponseRegisterDto>();
+        var response = new ServiceResponse<ResponseRegisterDto>();
 
         // Check if user already registered
         if (await UserExists(body.Email))
@@ -54,9 +54,9 @@ public class AuthService : IAuthService
         return response;
     }
 
-    public async Task<AuthResponseService<string>> Login(LoginDtos body)
+    public async Task<ServiceResponse<string>> Login(LoginDtos body)
     {
-        var response = new AuthResponseService<string>();
+        var response = new ServiceResponse<string>();
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(body.Email));
 
@@ -120,7 +120,7 @@ public class AuthService : IAuthService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(1),
+            Expires = DateTime.Now.AddDays(30),
             SigningCredentials = creds
         };
 

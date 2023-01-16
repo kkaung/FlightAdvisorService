@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace FlightAdvisorService.Controllers;
 
 [ApiController]
@@ -14,7 +12,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<UserResponseService<List<GetUserDto>>>> GetUsers()
+    public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> GetUsers()
     {
         var response = await _userService.GetUsers();
 
@@ -22,7 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<UserResponseService<GetUserDto>>> GetUser(int id)
+    public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUser(int id)
     {
         var response = await _userService.GetUser(id);
 
@@ -33,7 +31,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<UserResponseService<GetUserDto>>> UpdateUser(
+    public async Task<ActionResult<ServiceResponse<GetUserDto>>> UpdateUser(
         int id,
         UpdateUserDto body
     )
@@ -47,7 +45,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<UserResponseService<int>>> DeleteUser(int id)
+    public async Task<ActionResult<ServiceResponse<int>>> DeleteUser(int id)
     {
         var response = await _userService.DeleteUser(id);
 

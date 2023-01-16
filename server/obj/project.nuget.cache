@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2Php0AhRcRq3DR60A+9Bv7zLLqTBLK/F2s3PLtwwSwEsbGV8v09AhSLarGHp33KBWkxl/LKLc/eYHrVCaIvjIg==",
+  "dgSpecHash": "LF354pY/lENBzB3WR6C4SVloQK/f0CxD+Eur2myI/VSsdlq7+GKOrvlCEew7LrTG3yMDNahNSWDrkmnoWHleoA==",
   "success": true,
-  "projectFilePath": "/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/server.csproj",
+  "projectFilePath": "/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/server.csproj",
   "expectedPackageFiles": [
     "/Users/moongoblin/.nuget/packages/automapper/12.0.0/automapper.12.0.0.nupkg.sha512",
     "/Users/moongoblin/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.0/automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

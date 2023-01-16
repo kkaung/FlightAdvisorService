@@ -2459,11 +2459,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/server.csproj",
+      "projectUniqueName": "/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/server.csproj",
       "projectName": "server",
-      "projectPath": "/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/server.csproj",
+      "projectPath": "/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/server.csproj",
       "packagesPath": "/Users/moongoblin/.nuget/packages/",
-      "outputPath": "/Users/moongoblin/Documents/Developments/FlightAdvisorService/server/obj/",
+      "outputPath": "/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/moongoblin/.nuget/NuGet/NuGet.Config"

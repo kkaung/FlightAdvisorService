@@ -15,18 +15,18 @@ public class UserService : IUserService
         _hash = hash;
     }
 
-    public async Task<UserResponseService<List<GetUserDto>>> GetUsers()
+    public async Task<ServiceResponse<List<GetUserDto>>> GetUsers()
     {
-        var response = new UserResponseService<List<GetUserDto>>();
+        var response = new ServiceResponse<List<GetUserDto>>();
 
         response.Data = await _context.Users.Select(u => _mapper.Map<GetUserDto>(u)).ToListAsync();
 
         return response;
     }
 
-    public async Task<UserResponseService<GetUserDto>> GetUser(int id)
+    public async Task<ServiceResponse<GetUserDto>> GetUser(int id)
     {
-        var response = new UserResponseService<GetUserDto>();
+        var response = new ServiceResponse<GetUserDto>();
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
 
@@ -42,9 +42,9 @@ public class UserService : IUserService
         return response;
     }
 
-    public async Task<UserResponseService<GetUserDto>> UpdateUser(int id, UpdateUserDto body)
+    public async Task<ServiceResponse<GetUserDto>> UpdateUser(int id, UpdateUserDto body)
     {
-        var response = new UserResponseService<GetUserDto>();
+        var response = new ServiceResponse<GetUserDto>();
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
 
@@ -58,6 +58,7 @@ public class UserService : IUserService
         user.FirstName = body.FirstName;
         user.LastName = body.LastName;
         user.Email = body.Email;
+
 
         if (body.Password != "")
         {
@@ -76,9 +77,9 @@ public class UserService : IUserService
         return response;
     }
 
-    public async Task<UserResponseService<int>> DeleteUser(int id)
+    public async Task<ServiceResponse<int>> DeleteUser(int id)
     {
-        var response = new UserResponseService<int>();
+        var response = new ServiceResponse<int>();
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
 

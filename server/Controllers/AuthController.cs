@@ -14,9 +14,7 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<AuthResponseService<ResponseRegisterDto>>> Register(
-        RegisterDto body
-    )
+    public async Task<ActionResult<ServiceResponse<ResponseRegisterDto>>> Register(RegisterDto body)
     {
         var response = await _authService.Register(body);
 
@@ -29,7 +27,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     [ProducesResponseType(200)]
     [ProducesResponseType(401)]
-    public async Task<ActionResult<AuthResponseService<string>>> Login(LoginDtos body)
+    public async Task<ActionResult<ServiceResponse<string>>> Login(LoginDtos body)
     {
         var response = await _authService.Login(body);
 
