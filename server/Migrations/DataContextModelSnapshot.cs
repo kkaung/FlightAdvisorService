@@ -17,6 +17,32 @@ namespace server.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
+            modelBuilder.Entity("FlightAdvisorService.DTOs.Trip", b =>
+                {
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Distance")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("EndAirportId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("StartAirportId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("Trips");
+                });
+
             modelBuilder.Entity("FlightAdvisorService.Models.Ariport", b =>
                 {
                     b.Property<int>("Id")

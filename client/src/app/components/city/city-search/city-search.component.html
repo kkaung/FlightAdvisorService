@@ -91,12 +91,10 @@
                   </span>
                 </button>
                 <button
-                  class="btn btn-secondary btn-sm mt-2"
-                  data-bs-toggle="modal"
-                  data-bs-toggle="#addComment"
-                  (click)="onAdd(city.id!)"
+                  class="btn btn-secondary btn-sm mt-2 text-sm"
+                  (click)="onAdd(city.id!, modal)"
                 >
-                  Add Comment
+                  Add
                 </button>
               </td>
             </tr>
@@ -108,38 +106,48 @@
 </div>
 
 <!-- Add Comment Modal -->
-<app-modal title="Add Comment" [class]="'hidden'">
-  <form id="commentForm" [formGroup]="addForm!">
-    <div class="form-group">
-      <textarea
-        class="form-control"
-        formControlName="description"
-        id="description"
-        name="description"
-        rows="3"
-        placeholder="Description"
-        required
-        aria-label="description"
-        [ngClass]="{ 'is-invalid': isSubmitted && af.description.errors }"
-      >
-      </textarea>
-      <div *ngIf="af.description.errors" class="invalid-feedback">
-        <div *ngIf="af.description.errors['required']">
-          Description is required.
-        </div>
-      </div>
-    </div>
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Comment</h4>
     <button
       type="button"
-      class="btn btn-secondary"
-      data-dismiss="modal"
-      (click)="onAddComment()"
-      [disabled]="af.description.errors || af.description.value == ''"
-    >
-      Add
-    </button>
-    <button type="button" class="btn btn-link" data-dismiss="modal">
-      Cancel
-    </button>
-  </form>
-</app-modal>
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addForm!">
+      <div class="form-group">
+        <textarea
+          placeholder="Description"
+          rows="3"
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+        <div *ngIf="af.description.errors" class="invalid-feedback">
+          <div *ngIf="af.description.errors['required']">
+            Description is required.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onAddComment()"
+          [disabled]="af.description.errors || af.description.value == ''"
+        >
+          Add
+        </button>
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

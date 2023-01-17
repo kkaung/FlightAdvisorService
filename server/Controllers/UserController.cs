@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace FlightAdvisorService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("/api/users")]
 public class UserController : ControllerBase
@@ -11,6 +14,18 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+    [HttpGet("me")]
+    public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetMe()
+    {
+        var response = await _userService.GetMe();
+
+        if (!response.Success)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
+
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> GetUsers()
     {
@@ -19,6 +34,7 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUser(int id)
     {
@@ -30,6 +46,7 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
+    [AllowAnonymous]
     [HttpPut("{id}")]
     public async Task<ActionResult<ServiceResponse<GetUserDto>>> UpdateUser(
         int id,
@@ -44,6 +61,7 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
+    [AllowAnonymous]
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<int>>> DeleteUser(int id)
     {

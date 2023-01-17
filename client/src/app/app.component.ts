@@ -1,14 +1,43 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from './services';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { User } from './models';
+import { AuthService } from './services';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  title = 'client';
+  travelForm?: FormGroup;
+  user: User | null = null;
 
-  constructor() {}
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadUser();
+
+    this.travelForm = this.formBuilder.group({
+      travelingFrom: [''],
+      goingTo: [''],
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+
+    this.router.navigate(['/login']);
+  }
+
+  private loadUser() {
+    this.authService.getMe().subscribe({
+      next: (user) => {
+        this.user = user!;
+      },
+    });
+  }
 }

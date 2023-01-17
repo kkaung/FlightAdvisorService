@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace server.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateAirport : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,22 @@ namespace server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    StartAirportId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EndAirportId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<double>(type: "REAL", nullable: false),
+                    Distance = table.Column<double>(type: "REAL", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
                 });
 
             migrationBuilder.CreateTable(
@@ -111,6 +127,9 @@ namespace server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
 
             migrationBuilder.DropTable(
                 name: "Users");

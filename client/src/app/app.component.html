@@ -1,11 +1,51 @@
-<main class="container py-4" style="min-height: calc(100vh - 42.5px)">
+<nav class="navbar bg-body-tertiary bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MateFlightAdvisor</a>
+    <ul class="flex list-none space-x-6 mb-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item" ngbDropdown>
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          ngbDropdownToggle
+          role="button"
+        >
+          Cities
+        </a>
+        <div ngbDropdownMenu>
+          <a
+            ngbDropdownItem
+            routerLink="/cities/search"
+            routerLinkActive="active"
+            >Search</a
+          >
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/travel" routerLinkActive="active"
+          >Travel</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/auth/profile">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container py-4" style="min-height: calc(100vh - 42.5px - 56px)">
   <alert></alert>
   <router-outlet></router-outlet>
 </main>
 
 <footer class="text-center py-2">
-  <a class="text-primary" href="https://github.com/kkaung">
+  <a class="text-primary" href="https://github.com/kkaung/MateFlightAdvisor">
     <ng-icon name="ionLogoGithub" class="text-lg"></ng-icon>
-    <span class="text-sm"> Kaung Zaw </span>
   </a>
 </footer>

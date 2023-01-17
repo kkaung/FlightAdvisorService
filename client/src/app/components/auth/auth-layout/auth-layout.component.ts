@@ -8,6 +8,6 @@ import { AuthService } from 'src/app/services';
 })
 export class AuthLayoutComponent {
   constructor(private router: Router, private authService: AuthService) {
-    if (this.authService.user) this.router.navigate(['/']);
+    if (this.authService.userValue) this.router.navigate(['/']);
   }
 }

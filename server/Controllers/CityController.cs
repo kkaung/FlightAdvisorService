@@ -36,6 +36,22 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
+    [AllowAnonymous]
+    [HttpGet("airports")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult<ServiceResponse<GetAirportDto>>> GetAirportsInCity(
+        [FromQuery] string byName
+    )
+    {
+        var response = await _cityService.GetAirportsInCity(byName);
+
+        if (!response.Success)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
+
     [HttpPost("{id}/airports")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
@@ -82,6 +98,7 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
+    
     [HttpDelete("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
@@ -112,11 +129,34 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
+    [HttpPost("travel")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult<ServiceResponse<GetTripDto>>> CreateTrip(CreateTripDto body)
+    {
+        var response = await _cityService.CreateTrip(body);
+
+        if (!response.Success)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
+
     [HttpGet("travel")]
     [ProducesResponseType(200)]
-    public void GetTravel()
+    public async Task<ActionResult<ServiceResponse<List<GetTripDto>>>> GetTravel(
+        [FromQuery(Name = "from")] string from,
+        [FromQuery(Name = "to")] string to
+    )
     {
-        // var response = await _cityService.SearchCity();
+        Console.WriteLine(from, to);
+
+        var response = await _cityService.GetTrips(from, to);
+
+        if (!response.Success)
+            return BadRequest(response);
+
+        return Ok(response);
     }
 
     [HttpGet("upcoming")]

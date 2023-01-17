@@ -12,12 +12,14 @@ import { NgIconsModule } from '@ng-icons/core';
 import { ionLogoGithub } from '@ng-icons/ionicons';
 import { CityModule } from './components/city/city.module';
 import { SharedModule } from './components/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, AlertComponent, HomeComponent, TravelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
     AuthModule,

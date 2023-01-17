@@ -13,5 +13,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Ariport, GetAirportDto>();
         CreateMap<Comment, GetCommetDto>().ReverseMap();
         CreateMap<CreateCommentDto, Comment>().ReverseMap();
+        CreateMap<Trip, GetTripDto>().ReverseMap();
     }
 }

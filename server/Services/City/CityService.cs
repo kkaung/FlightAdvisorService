@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using FlightAdvisorService.Helpers;
 
 namespace FlightAdvisorService.Services;
 
@@ -47,6 +48,28 @@ public class CityService : ICityService
         await _context.SaveChangesAsync();
 
         response.Data = _mapper.Map<GetCityDto>(newCity);
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<List<GetAirportDto>>> GetAirportsInCity(string byName)
+    {
+        var response = new ServiceResponse<List<GetAirportDto>>();
+
+        var city = await _context.Cities.FirstOrDefaultAsync(
+            c => c.Name.ToLower().Contains(byName.ToLower())
+        );
+
+        if (city is null)
+        {
+            response.Message = "City not found!";
+            response.Success = false;
+            return response;
+        }
+
+        var airports = await _context.Ariports.Where(c => c.CityId == c.CityId).ToListAsync();
+
+        response.Data = airports.Select(c => _mapper.Map<GetAirportDto>(c)).ToList();
 
         return response;
     }
@@ -171,9 +194,60 @@ public class CityService : ICityService
         return response;
     }
 
-    public Task<ServiceResponse<GetCityDto>> GetTravel()
+    public async Task<ServiceResponse<GetTripDto>> CreateTrip(CreateTripDto body)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<GetTripDto>();
+
+        var start = await FindAirport(body.Start);
+        var end = await FindAirport(body.End);
+        var through = new List<int>() { };
+
+        foreach (var a in body.Through)
+        {
+            var airport = await FindAirport(a);
+
+            if (airport is not null)
+                through.Add(airport!.Id);
+        }
+
+        var newTrip = new Trip();
+
+        newTrip.StartAirportId = 1;
+        newTrip.EndAirportId = 2;
+        newTrip.ThroughAirportIds = through;
+        newTrip.Price = body.price;
+        newTrip.Distance = Haversine.Distance(
+            start.Latitude,
+            start.Longitude,
+            end.Latitude,
+            end.Longitude
+        );
+
+        // await _context.Trips.AddAsync(newTrip);
+        // await _context.SaveChangesAsync();
+
+        var trip = _mapper.Map<GetTripDto>(newTrip);
+
+        response.Data = trip;
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<List<GetTripDto>>> GetTrips(string from, string to)
+    {
+        var response = new ServiceResponse<List<GetTripDto>>();
+
+        // var trips = await _context.Trips
+        //     .Where(
+        //         t =>
+        //             t.Start!.Name.ToLower() == from.ToLower()
+        //             && t.End!.Name.ToLower() == to.ToLower()
+        //     )
+        //     .ToListAsync();
+
+        // response.Data = trips.Select(t => _mapper.Map<GetTripDto>(t)).ToList();
+
+        return response;
     }
 
     public Task<ServiceResponse<GetCityDto>> GetUpcomingTrips()
@@ -189,6 +263,11 @@ public class CityService : ICityService
     private async Task<bool> AirportExists(string name)
     {
         return await _context.Ariports.AnyAsync(a => a.Name.ToLower() == name.ToLower());
+    }
+
+    private async Task<Ariport> FindAirport(string name)
+    {
+        return await _context.Ariports.FirstOrDefaultAsync(a => a.Name.ToLower() == name.ToLower());
     }
 
     private int getUserId()

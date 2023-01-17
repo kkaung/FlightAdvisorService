@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, AlertService } from 'src/app/services';
 
 @Component({
@@ -17,9 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private route: ActivatedRoute,
     private alertService: AlertService,
     private router: Router
-  ) {}
+  ) {
+    this.router.navigate(['/login']);
+  }
 
   get f() {
     return {
@@ -56,10 +59,10 @@ export class LoginComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          console.log('login');
-          const returnUrl = '/';
+          // get return url from query parameters or default to home page
+          const returnUrl: string =
+            this.route.snapshot.queryParams['returnUrl'] || '/';
 
-          //  if successful login
           this.router.navigateByUrl(returnUrl);
         },
         error: (res) => {

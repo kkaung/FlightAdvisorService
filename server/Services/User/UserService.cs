@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlightAdvisorService.Services;
@@ -7,12 +8,38 @@ public class UserService : IUserService
     private DataContext _context;
     private IMapper _mapper;
     private Hash _hash;
+    private IHttpContextAccessor _httpContextAccessor;
 
-    public UserService(DataContext context, IMapper mapper, Hash hash)
+    public UserService(
+        DataContext context,
+        IMapper mapper,
+        Hash hash,
+        IHttpContextAccessor httpContextAccessor
+    )
     {
         _context = context;
         _mapper = mapper;
         _hash = hash;
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    public async Task<ServiceResponse<GetUserDto>> GetMe()
+    {
+        var response = new ServiceResponse<GetUserDto>();
+
+        var uid = GetUserId();
+
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == uid);
+
+        if (user is null)
+        {
+            response.Success = false;
+            response.Message = "Invalid token";
+        }
+
+        response.Data = _mapper.Map<GetUserDto>(user);
+
+        return response;
     }
 
     public async Task<ServiceResponse<List<GetUserDto>>> GetUsers()
@@ -59,7 +86,6 @@ public class UserService : IUserService
         user.LastName = body.LastName;
         user.Email = body.Email;
 
-
         if (body.Password != "")
         {
             _hash.HashPassword(body.Password, out byte[] passwordSalt, out byte[] passwordHash);
@@ -96,5 +122,12 @@ public class UserService : IUserService
         response.Data = id;
 
         return response;
+    }
+
+    private int GetUserId()
+    {
+        return Convert.ToInt16(
+            _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)!
+        );
     }
 }

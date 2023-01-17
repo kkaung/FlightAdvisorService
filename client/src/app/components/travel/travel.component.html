@@ -1,4 +1,4 @@
-<!-- <div class="border-bottom mb-4 md:max-w-[800px] lg:max-w-none">
+<div class="border-bottom mb-4 md:max-w-[800px] lg:max-w-none">
   <h3 class="text-center cursor-pointer" routerLink="">
     Welcome to Flight Advisor Service!
   </h3>
@@ -7,12 +7,24 @@
   <div class="mb-4">
     <div class="text-xl">Where would you like to travel...</div>
   </div>
-  <form>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form!">
     <div class="mb-4">
       <div class="flex mb-4 flex-col md:flex-row md:justify-between">
         <div class="space-x-4 mb-3 sm:mb-0">
-          <div class="btn btn-primary">Roundtrip</div>
-          <div class="btn btn-light text-primary">One-way</div>
+          <div
+            class="btn"
+            [ngClass]="isRoundTrip ? 'btn-primary' : 'btn-light'"
+            (click)="onTripTypeChange(true)"
+          >
+            Roundtrip
+          </div>
+          <div
+            class="btn"
+            [ngClass]="!isRoundTrip ? 'btn-primary' : 'btn-light'"
+            (click)="onTripTypeChange(false)"
+          >
+            One-way
+          </div>
         </div>
         <div class="space-x-4">
           <select
@@ -39,29 +51,75 @@
           <div
             class="border border-gray-200 rounded flex items-center py-1 px-2 w-full"
           >
+            <span
+              *ngIf="isSearchingFromAirports"
+              class="spinner-border spinner-border-sm text-secondary"
+              role="status"
+              aria-hidden="true"
+            ></span>
             <ng-icon
+              *ngIf="!isSearchingFromAirports"
               name="ionLocation"
               class="text-xl text-secondary mr-1"
               style="line-height: 0"
             ></ng-icon>
             <input
+              id="from"
+              list="from"
+              name="from"
               placeholder="Flying from"
               class="outline-none flex-1 border-none placeholder:font-light"
+              formControlName="from"
+              required
+              autofocus
+              (keyup)="onKeypress($event)"
+              (change)="onSelect(1)"
             />
+            <datalist id="from">
+              <option
+                *ngFor="let airport of airports"
+                value="{{ airport.iata }}"
+              >
+                {{ airport.name }}
+              </option>
+            </datalist>
           </div>
           <div
             class="outline-none border border-gray-200 rounded flex items-center py-1 px-2 w-full"
           >
+            <span
+              *ngIf="isSearchingToAirports"
+              class="spinner-border spinner-border-sm text-secondary"
+              role="status"
+              aria-hidden="true"
+            ></span>
             <ng-icon
+              *ngIf="!isSearchingToAirports"
               name="ionLocation"
               class="text-xl text-secondary mr-1"
               style="line-height: 0"
             ></ng-icon>
             <input
-              placeholder="Going to"
+              id="from"
+              list="from"
+              placeholder="Flying to"
               class="outline-none flex-1 border-none placeholder:font-light"
+              formControlName="to"
+              name="to"
+              (keyup)="onKeypress($event)"
+              (change)="onSelect(2)"
             />
           </div>
+          <div *ngIf="isSubmitted && f.from.errors" class="invalid-feedback">
+            <div *ngIf="f.from.errors['required']">
+              Select flying from airport.
+            </div>
+          </div>
+          <datalist id="to">
+            <option *ngFor="let airport of airports" value="{{ airport.iata }}">
+              {{ airport.name }}
+            </option>
+          </datalist>
         </div>
         <div class="flex items-center space-x-4 flex-1">
           <input
@@ -76,7 +134,20 @@
       </div>
     </div>
     <div class="flex justify-center">
-      <button type="submit" class="btn btn-primary w-[140px]">Search</button>
+      <button
+        type="submit"
+        class="btn btn-primary w-[140px]"
+        [ngClass]="isSearching ? 'w-auto' : 'w-25'"
+        [disabled]="isSearching"
+      >
+        <span
+          *ngIf="isSearching"
+          class="spinner-grow spinner-grow"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Search
+      </button>
     </div>
   </form>
-</form> -->
+</form>

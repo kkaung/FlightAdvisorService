@@ -41,23 +41,27 @@
               </p>
             </td>
           </tr>
-          <tr *ngFor="let comment of city.comments; let i = index">
+          <tr *ngFor="let comment of city?.comments; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ comment.body }}</td>
             <td>{{ "bySomeOne" }}</td>
             <td>{{ comment.createdAt | date : "short" }}</td>
             <td>{{ comment.updatedAt | date : "short" }}</td>
             <td class="text-right">
-              <!-- (click)="onUpdate(comment.id, comment.comment)" -->
               <button
                 class="btn btn-primary btn-sm mr-2"
-                data-toggle="modal"
-                data-target="#updateComment"
+                [disabled]="comment.userId != user?.id"
+                (click)="onUpdate(comment.id!, comment.body!, modal)"
               >
                 Update
               </button>
-              <!-- (click)="deleteComment(comment.id)" -->
-              <button class="btn btn-outline-danger btn-sm">Delete</button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                [disabled]="comment.userId != user?.id"
+                (click)="onDeleteComment(comment.id!)"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>
@@ -86,62 +90,48 @@
 </div>
 
 <!-- Update Comment Modal -->
-
-<!-- <div
-  class="modal fade"
-  id="updateComment"
-  data-backdrop="static"
-  data-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="updateCommentLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateCommentLabel">Update Comment</h5>
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Comment</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form!">
+      <div class="form-group">
+        <textarea
+          placeholder="Description"
+          rows="3"
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+        <div *ngIf="f.description.errors" class="invalid-feedback">
+          <div *ngIf="f.description.errors['required']">
+            Description is required.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
         <button
           type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
+          class="btn btn-primary"
+          (click)="onUpdateComment(modal)"
+          [disabled]="f.description.errors || f.description.value == ''"
         >
-          <span aria-hidden="true">&times;</span>
+          Add
+        </button>
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
         </button>
       </div>
-      <div class="modal-body">
-        <form id="commentForm" [formGroup]="form!">
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-              class="form-control"
-              formControlName="description"
-              id="description"
-              name="description"
-              rows="3"
-              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
-              required
-            ></textarea>
-            <div *ngIf="f.description.errors" class="invalid-feedback">
-              <div *ngIf="f.description.errors.required">
-                Description is required.
-              </div>
-            </div>
-          </div>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-            (click)="updateComment()"
-            [disabled]="f.description.errors || f.description.value == ''"
-          >
-            Update
-          </button>
-          <button type="button" class="btn btn-link" data-dismiss="modal">
-            Cancel
-          </button>
-        </form>
-      </div>
-    </div>
+    </form>
   </div>
-</div> -->
+</ng-template>

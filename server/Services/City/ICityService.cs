@@ -4,7 +4,9 @@ public interface ICityService
 {
     Task<ServiceResponse<List<GetCityDto>>> GetCities();
     Task<ServiceResponse<GetCityDto>> CreateCity(CreateCityDto body);
+    Task<ServiceResponse<List<GetAirportDto>>> GetAirportsInCity(string byName);
     Task<ServiceResponse<GetAirportDto>> CreateAirportInCity(int id, CreateAirportDto body);
+
     Task<ServiceResponse<GetCommetDto>> CreateCommentInCity(int id, CreateCommentDto body);
 
     Task<ServiceResponse<GetCommetDto>> UpdateCommentInCity(
@@ -17,7 +19,9 @@ public interface ICityService
 
     Task<ServiceResponse<List<GetCityDto>>> SearchCity(SearchCityDto body, int cLimit);
 
-    Task<ServiceResponse<GetCityDto>> GetTravel();
-
     Task<ServiceResponse<GetCityDto>> GetUpcomingTrips();
+
+    Task<ServiceResponse<GetTripDto>> CreateTrip(CreateTripDto body);
+
+    Task<ServiceResponse<List<GetTripDto>>> GetTrips(string from, string to);
 }

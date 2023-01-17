@@ -5,7 +5,6 @@ import { City } from 'src/app/models';
 import { AlertService } from 'src/app/services';
 import { CityService } from 'src/app/services/city.service';
 import { SessionService } from 'src/app/services/session.service';
-import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   selector: 'app-city-search',
@@ -66,11 +65,26 @@ export class CitySearchComponent implements OnInit, OnDestroy {
     this.sessionService.put('city', city);
   }
 
-  onAdd(cityId: number) {
-    this.openModal();
+  onAdd(cityId: number, modal: any) {
+    this.modalService.open(modal);
+
+    this.sessionService.put('cityId', cityId);
   }
 
-  onAddComment() {}
+  onAddComment() {
+    this.isSubmitted = true;
+
+    this.alertService.clear();
+
+    if (this.addForm.invalid) return;
+
+    this.cityService.addComment(
+      this.sessionService.get('cityId'),
+      this.af.description.value
+    );
+
+    this.isSubmitted = false;
+  }
 
   private search(): void {
     this.isLoading = true;
@@ -96,7 +110,5 @@ export class CitySearchComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  private openModal() {
-    this.modalService.open(ModalComponent);
-  }
+  private openModal() {}
 }
