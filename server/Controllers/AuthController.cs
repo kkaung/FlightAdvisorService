@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Cors;
+
 namespace FlightAdvisorService.Controllers;
 
+[EnableCors("AllowSpecificOrigin")]
 [ApiController]
 [Route("public")]
 public class AuthController : ControllerBase

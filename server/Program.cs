@@ -21,6 +21,19 @@ builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddCors();
 builder.Services.AddTransient<Hash>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "AllowSpecificOrigin",
+        builder =>
+        {
+            builder
+                .WithOrigins("http://localhost:4200", "https://mate-flight-advisor.vercel.app")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -46,13 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(
-    options =>
-        options
-            .WithOrigins("http://localhost:4200", "https://mate-flight-advisor.vercel.app")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-);
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

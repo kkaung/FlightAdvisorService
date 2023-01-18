@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace FlightAdvisorService.Controllers;
 
+[EnableCors("AllowSpecificOrigin")]
 [Authorize]
 [ApiController]
 [Route("/api/users")]
