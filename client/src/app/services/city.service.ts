@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Airport, City, Response, Trip } from '../models';
-import { environment } from '../../environements';
+import { environment } from '../../environments';
 import { AuthService } from './auth.service';
 
 @Injectable({
