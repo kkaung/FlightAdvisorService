@@ -46,7 +46,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors(
+    options =>
+        options
+            .WithOrigins("http://localhost:4200", "https://mate-flight-advisor.vercel.app")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
