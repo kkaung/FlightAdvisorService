@@ -1,17 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+namespace FlightAdvisorService.Models;
 
-namespace FlightAdvisorService.DTOs;
-
-[Keyless]
 public class Trip
 {
     public int Id { get; set; }
-    public int StartAirportId { get; set; }
-    public List<int> ThroughAirportIds { get; set; } = new List<int>();
+    public int StartAriportId { get; set; }
     public int EndAirportId { get; set; }
-    public double Price { get; set; }
-    public double Distance { get; set; }
+    public List<Ariport> ThroughAirport { get; set; } = new List<Ariport>();
+    public double TotalPrice { get; set; }
+    public double TotalDistance { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

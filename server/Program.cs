@@ -1,9 +1,9 @@
 global using Microsoft.AspNetCore.Mvc;
-global using FlightAdvisorService.DTOs;
 global using FlightAdvisorService.Models;
 global using FlightAdvisorService.Data;
 global using FlightAdvisorService.Services;
 global using FlightAdvisorService.Helpers;
+global using FlightAdvisorService.DTOs;
 global using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

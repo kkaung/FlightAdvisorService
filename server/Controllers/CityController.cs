@@ -1,3 +1,4 @@
+using System.Web;
 using Microsoft.AspNetCore.Authorization;
 
 namespace FlightAdvisorService.Controllers;
@@ -98,7 +99,6 @@ public class CityController : ControllerBase
         return Ok(response);
     }
 
-    
     [HttpDelete("{cid}/comments/{cmid}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
@@ -149,8 +149,6 @@ public class CityController : ControllerBase
         [FromQuery(Name = "to")] string to
     )
     {
-        Console.WriteLine(from, to);
-
         var response = await _cityService.GetTrips(from, to);
 
         if (!response.Success)

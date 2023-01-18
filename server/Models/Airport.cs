@@ -10,4 +10,6 @@ public class Ariport
     public float Longitude { get; set; }
     public string Country { get; set; } = "AU";
     public int CityId { get; set; }
+
+    public List<Trip>? Trips { get; set; }
 }

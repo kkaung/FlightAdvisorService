@@ -6,17 +6,17 @@ public class GetTripDto
     public GetAirportDto? Start { get; set; }
     public List<GetAirportDto> Through { get; set; } = new List<GetAirportDto>();
     public GetAirportDto? End { get; set; }
-    // public Price? Price { get; set; }
-    // public Distance? Distance { get; set; }
+    public PriceDto Price { get; set; } = new PriceDto();
+    public DistanceDto Distance { get; set; } = new DistanceDto();
 }
 
-public class Price
+public class PriceDto
 {
     public Double Total { get; set; }
     public string Currency { get; } = "AUD";
 }
 
-public class Distance
+public class DistanceDto
 {
     public Double Total { get; set; }
     public string In { get; } = "KM";

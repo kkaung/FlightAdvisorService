@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using FlightAdvisorService.Helpers;
 
 namespace FlightAdvisorService.Services;
 
@@ -117,7 +116,7 @@ public class CityService : ICityService
 
         var newComment = _mapper.Map<Comment>(body);
         newComment.CityId = cid;
-        newComment.UserId = getUserId();
+        newComment.UserId = GetUserId();
 
         await _context.Comments.AddAsync(newComment);
         await _context.SaveChangesAsync();
@@ -200,33 +199,50 @@ public class CityService : ICityService
 
         var start = await FindAirport(body.Start);
         var end = await FindAirport(body.End);
-        var through = new List<int>() { };
+        var through = new List<Ariport>() { };
+        var throughAirportIds = new List<int>() { };
+
+        if (start is null || end is null)
+        {
+            response.Success = false;
+            response.Message = "Airport not found";
+            return response;
+        }
 
         foreach (var a in body.Through)
         {
             var airport = await FindAirport(a);
 
             if (airport is not null)
-                through.Add(airport!.Id);
+            {
+                throughAirportIds.Add(airport!.Id);
+                through.Add(airport);
+            }
         }
 
         var newTrip = new Trip();
 
-        newTrip.StartAirportId = 1;
-        newTrip.EndAirportId = 2;
-        newTrip.ThroughAirportIds = through;
-        newTrip.Price = body.price;
-        newTrip.Distance = Haversine.Distance(
+        newTrip.StartAriportId = start.Id;
+        newTrip.EndAirportId = end.Id;
+        newTrip.ThroughAirport = through;
+        newTrip.TotalPrice = body.price;
+        newTrip.TotalDistance = Haversine.Distance(
             start.Latitude,
             start.Longitude,
             end.Latitude,
             end.Longitude
         );
 
-        // await _context.Trips.AddAsync(newTrip);
-        // await _context.SaveChangesAsync();
+        await _context.Trips.AddAsync(newTrip);
+        await _context.SaveChangesAsync();
 
         var trip = _mapper.Map<GetTripDto>(newTrip);
+
+        trip.Price.Total = newTrip.TotalPrice;
+        trip.Distance.Total = newTrip.TotalDistance;
+        trip.Start = _mapper.Map<GetAirportDto>(start);
+        trip.End = _mapper.Map<GetAirportDto>(end);
+        trip.Through = through.Select(a => _mapper.Map<GetAirportDto>(a)).ToList();
 
         response.Data = trip;
 
@@ -237,15 +253,39 @@ public class CityService : ICityService
     {
         var response = new ServiceResponse<List<GetTripDto>>();
 
-        // var trips = await _context.Trips
-        //     .Where(
-        //         t =>
-        //             t.Start!.Name.ToLower() == from.ToLower()
-        //             && t.End!.Name.ToLower() == to.ToLower()
-        //     )
-        //     .ToListAsync();
+        var fromCity = await FindCity(from);
+        var toCity = await FindCity(to);
 
-        // response.Data = trips.Select(t => _mapper.Map<GetTripDto>(t)).ToList();
+        var fromAirportIds = fromCity.Airports!.Select(a => a.Id).ToList();
+        var toAirportIds = toCity.Airports!.Select(a => a.Id).ToList();
+
+        var FoundTrips = new List<GetTripDto>();
+
+        foreach (var fid in fromAirportIds)
+        {
+            foreach (var tid in toAirportIds)
+            {
+                var trip = await _context.Trips.FirstAsync(
+                    t => t.StartAriportId == fid && t.EndAirportId == tid
+                );
+
+                var mapTrip = _mapper.Map<GetTripDto>(trip);
+
+                mapTrip.Distance.Total = trip.TotalDistance;
+                mapTrip.Price.Total = trip.TotalPrice;
+                mapTrip.Start = _mapper.Map<GetAirportDto>(
+                    await _context.Ariports.FirstAsync(a => a.Id == trip.StartAriportId)
+                );
+                mapTrip.End = _mapper.Map<GetAirportDto>(
+                    await _context.Ariports.FirstAsync(a => a.Id == trip.EndAirportId)
+                );
+                mapTrip.Through = trip.ThroughAirport.Select(a => _mapper.Map<GetAirportDto>(a)).ToList();
+
+                FoundTrips.Add(mapTrip);
+            }
+        }
+
+        response.Data = FoundTrips;
 
         return response;
     }
@@ -270,7 +310,14 @@ public class CityService : ICityService
         return await _context.Ariports.FirstOrDefaultAsync(a => a.Name.ToLower() == name.ToLower());
     }
 
-    private int getUserId()
+    private async Task<City> FindCity(string name)
+    {
+        return await _context.Cities
+            .Include(c => c.Airports)
+            .FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower());
+    }
+
+    private int GetUserId()
     {
         return int.Parse(
             _httpContextAccess.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)!

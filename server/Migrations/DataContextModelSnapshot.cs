@@ -17,30 +17,19 @@ namespace server.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
-            modelBuilder.Entity("FlightAdvisorService.DTOs.Trip", b =>
+            modelBuilder.Entity("AriportTrip", b =>
                 {
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Distance")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("EndAirportId")
+                    b.Property<int>("ThroughAirportId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("TripsId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
+                    b.HasKey("ThroughAirportId", "TripsId");
 
-                    b.Property<int>("StartAirportId")
-                        .HasColumnType("INTEGER");
+                    b.HasIndex("TripsId");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.ToTable("Trips");
+                    b.ToTable("AriportTrip");
                 });
 
             modelBuilder.Entity("FlightAdvisorService.Models.Ariport", b =>
@@ -133,6 +122,35 @@ namespace server.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("FlightAdvisorService.Models.Trip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EndAirportId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StartAriportId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("TotalDistance")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Trips");
+                });
+
             modelBuilder.Entity("FlightAdvisorService.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -163,6 +181,21 @@ namespace server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AriportTrip", b =>
+                {
+                    b.HasOne("FlightAdvisorService.Models.Ariport", null)
+                        .WithMany()
+                        .HasForeignKey("ThroughAirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlightAdvisorService.Models.Trip", null)
+                        .WithMany()
+                        .HasForeignKey("TripsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FlightAdvisorService.Models.Ariport", b =>

@@ -30,16 +30,18 @@ namespace server.Migrations
                 name: "Trips",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    StartAirportId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StartAriportId = table.Column<int>(type: "INTEGER", nullable: false),
                     EndAirportId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Price = table.Column<double>(type: "REAL", nullable: false),
-                    Distance = table.Column<double>(type: "REAL", nullable: false),
+                    TotalPrice = table.Column<double>(type: "REAL", nullable: false),
+                    TotalDistance = table.Column<double>(type: "REAL", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Trips", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,10 +110,39 @@ namespace server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AriportTrip",
+                columns: table => new
+                {
+                    ThroughAirportId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TripsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AriportTrip", x => new { x.ThroughAirportId, x.TripsId });
+                    table.ForeignKey(
+                        name: "FK_AriportTrip_Ariports_ThroughAirportId",
+                        column: x => x.ThroughAirportId,
+                        principalTable: "Ariports",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AriportTrip_Trips_TripsId",
+                        column: x => x.TripsId,
+                        principalTable: "Trips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Ariports_CityId",
                 table: "Ariports",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AriportTrip_TripsId",
+                table: "AriportTrip",
+                column: "TripsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_CityId",
@@ -123,16 +154,19 @@ namespace server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ariports");
+                name: "AriportTrip");
 
             migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Trips");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Ariports");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
 
             migrationBuilder.DropTable(
                 name: "Cities");

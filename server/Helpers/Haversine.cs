@@ -15,7 +15,7 @@ class Haversine
             Math.Sin(dLat / 2) * Math.Sin(dLat / 2)
             + Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-        return R * c;
+        return Math.Round(R * c, 2);
     }
 
     private static double ToRadians(double angle)
