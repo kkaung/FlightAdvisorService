@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 import { Login, Register, User } from '../types';
-import { environment } from 'src/environement';
+import { environment } from 'src/environements';
 import { Response } from '../models';
 
 @Injectable({
