@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230118080426_Initial")]
+    [Migration("20230118130309_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -122,6 +122,8 @@ namespace server.Migrations
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Comments");
                 });
 
@@ -217,12 +219,25 @@ namespace server.Migrations
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FlightAdvisorService.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FlightAdvisorService.Models.City", b =>
                 {
                     b.Navigation("Airports");
 
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("FlightAdvisorService.Models.User", b =>
+                {
                     b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618

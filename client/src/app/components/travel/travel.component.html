@@ -136,8 +136,7 @@
     <div class="flex justify-center">
       <button
         type="submit"
-        class="btn btn-primary w-[140px]"
-        [ngClass]="isSearching ? 'w-auto' : 'w-25'"
+        class="btn btn-primary min-w-[140px]"
         [disabled]="isSearching"
       >
         <span
@@ -151,3 +150,41 @@
     </div>
   </form>
 </form>
+
+<div class="text-center" *ngIf="isSubmitted && trips.length == 0">
+  <hr />
+  <p class="mb-0 lead text-dark">No search results! try again...</p>
+</div>
+
+<!-- Trips -->
+<div *ngIf="trips.length != 0">
+  <div *ngFor="let trip of trips" class="card mt-4 p-3">
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <div class="flex items-center text-sm space-x-2">
+          <div>
+            {{ trip.start?.name }}
+          </div>
+          <div>
+            <ng-icon name="ionArrowForward"></ng-icon>
+          </div>
+          <div>
+            {{ trip.end?.name }}
+          </div>
+        </div>
+        <div *ngFor="let stop of trip.through">
+            <div class="text-sm">{{stop.name}}📍</div>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="font-semibold">
+          {{ trip.distance?.total }}{{ trip.distance?.in }}
+        </div>
+        <div class="text-sm">{{ trip.through?.length }} stop<span>s</span></div>
+      </div>
+      <div class="text-xl font-bold">
+        <span>{{ trip.price?.currency }}$</span>{{ trip.price?.total }}
+      </div>
+    </div>
+  </div>
+</div>

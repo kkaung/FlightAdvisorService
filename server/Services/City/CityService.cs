@@ -253,6 +253,11 @@ public class CityService : ICityService
     {
         var response = new ServiceResponse<List<GetTripDto>>();
 
+        if (from == "")
+        {
+            Console.WriteLine("NULL");
+        }
+
         var fromCity = await FindCity(from);
         var toCity = await FindCity(to);
 
@@ -265,23 +270,28 @@ public class CityService : ICityService
         {
             foreach (var tid in toAirportIds)
             {
-                var trip = await _context.Trips.FirstAsync(
-                    t => t.StartAriportId == fid && t.EndAirportId == tid
-                );
+                var trip = await _context.Trips
+                    .Include(t => t.ThroughAirport)
+                    .FirstOrDefaultAsync(t => t.StartAriportId == fid && t.EndAirportId == tid);
 
-                var mapTrip = _mapper.Map<GetTripDto>(trip);
+                if (trip is not null)
+                {
+                    var mapTrip = _mapper.Map<GetTripDto>(trip);
 
-                mapTrip.Distance.Total = trip.TotalDistance;
-                mapTrip.Price.Total = trip.TotalPrice;
-                mapTrip.Start = _mapper.Map<GetAirportDto>(
-                    await _context.Ariports.FirstAsync(a => a.Id == trip.StartAriportId)
-                );
-                mapTrip.End = _mapper.Map<GetAirportDto>(
-                    await _context.Ariports.FirstAsync(a => a.Id == trip.EndAirportId)
-                );
-                mapTrip.Through = trip.ThroughAirport.Select(a => _mapper.Map<GetAirportDto>(a)).ToList();
+                    mapTrip.Distance.Total = trip.TotalDistance;
+                    mapTrip.Price.Total = trip.TotalPrice;
+                    mapTrip.Start = _mapper.Map<GetAirportDto>(
+                        await _context.Ariports.FirstAsync(a => a.Id == trip.StartAriportId)
+                    );
+                    mapTrip.End = _mapper.Map<GetAirportDto>(
+                        await _context.Ariports.FirstAsync(a => a.Id == trip.EndAirportId)
+                    );
+                    mapTrip.Through = trip.ThroughAirport
+                        .Select(a => _mapper.Map<GetAirportDto>(a))
+                        .ToList();
 
-                FoundTrips.Add(mapTrip);
+                    FoundTrips.Add(mapTrip);
+                }
             }
         }
 

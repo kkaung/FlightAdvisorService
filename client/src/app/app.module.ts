@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { AuthModule } from './components/auth/auth.module';
 import { NgIconsModule } from '@ng-icons/core';
-import { ionLogoGithub } from '@ng-icons/ionicons';
+import { ionArrowForward, ionLogoGithub } from '@ng-icons/ionicons';
 import { CityModule } from './components/city/city.module';
 import { SharedModule } from './components/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthModule,
     CityModule,
     SharedModule,
-    NgIconsModule.withIcons({ ionLogoGithub }),
+    NgIconsModule.withIcons({ ionLogoGithub, ionArrowForward }),
   ],
   providers: [],
   bootstrap: [AppComponent],

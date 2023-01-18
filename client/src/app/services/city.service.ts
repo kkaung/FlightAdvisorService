@@ -46,6 +46,8 @@ export class CityService {
   addComment(cityId: number, comment: string) {
     const token = this.authService.getToken();
 
+    console.log(cityId, comment);
+
     return this.http
       .post<Response<City>>(
         `${environment.apiKey}/api/cities/${cityId}/comments`,

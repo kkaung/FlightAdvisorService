@@ -119,6 +119,8 @@ namespace server.Migrations
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Comments");
                 });
 
@@ -214,12 +216,25 @@ namespace server.Migrations
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FlightAdvisorService.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FlightAdvisorService.Models.City", b =>
                 {
                     b.Navigation("Airports");
 
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("FlightAdvisorService.Models.User", b =>
+                {
                     b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618

@@ -60,7 +60,11 @@ export class AuthService {
           // decode the token
           const user = this.decodeToken(token);
 
-          this.userSubject!.next(user);
+          this.userSubject = new BehaviorSubject<User | null>(user);
+
+          this.user = this.userSubject.asObservable();
+
+          //   this.user = this.userSubject!.next(user);
 
           return user;
         })

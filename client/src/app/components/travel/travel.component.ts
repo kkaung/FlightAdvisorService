@@ -82,8 +82,6 @@ export class TravelComponent implements OnInit {
 
     if (this.form.invalid) return;
 
-    console.log(this.f.from.value, this.f.to.value);
-
     this.searchTrips(this.f.from.value, this.f.to.value);
   }
 
@@ -98,6 +96,10 @@ export class TravelComponent implements OnInit {
       next: (trips) => {
         this.trips = trips!;
         this.isSearching = false;
+
+        this.trips = trips!;
+
+        console.log(this.trips);
       },
       error: (err) => {
         this.alertService.error(err);

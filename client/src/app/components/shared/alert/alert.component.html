@@ -1,7 +1,7 @@
-<div *ngFor="let alert of alerts" class="container">
+<div *ngFor="let alert of alerts" class="min-w-[300px] fixed top-16 right-10" >
   <ngb-alert
     class=" z-10 max-w-[600px] right-0 text-sm {{ cssClass(alert) }}"
-    (closed)="close(alert)"
+    (closed)="removeAlert(alert)"
     >{{ alert.message }}</ngb-alert
   >
 </div>

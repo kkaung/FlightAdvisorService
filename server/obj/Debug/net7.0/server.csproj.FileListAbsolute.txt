@@ -88,7 +88,6 @@
 /Users/moongoblin/Documents/Developments/FlightAdvisorService/server/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/appsettings.Development.json
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/appsettings.json
-/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Data/AirpotSeed.json
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Data/CitySeed.json
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/net7.0/appsettings.Development.json
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/net7.0/appsettings.json
@@ -174,3 +173,4 @@
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/Debug/net7.0/server.pdb
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/Debug/net7.0/server.genruntimeconfig.cache
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/Debug/net7.0/ref/server.dll
+/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Data/AirportSeed.json
