@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
@@ -57,6 +56,8 @@ public class AuthService : IAuthService
     public async Task<ServiceResponse<string>> Login(LoginDtos body)
     {
         var response = new ServiceResponse<string>();
+
+        Console.WriteLine(Environment.GetEnvironmentVariable("MySQLConnectionString"));
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(body.Email));
 

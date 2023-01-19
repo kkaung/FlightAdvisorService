@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FlightAdvisorService.Models;
 
 public class User
 {
+    [Key]
     public int Id { get; set; }
     public string FirstName { get; set; } = String.Empty;
     public string LastName { get; set; } = String.Empty;
