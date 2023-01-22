@@ -19,7 +19,7 @@ Website: https://mate-flight-advisor.vercel.app
 
 -   Travel Page
 
-![Travel Page](docs/images/travel.png)
+![Travel Page](docs/images/up-travel.png)
 
 -   Api Endpoints
 
