@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
     this.alertService.clear();
 
     this.isLoading = true;
-    console.log(this.form.controls);
 
     if (!this.form.valid) return;
 
@@ -59,7 +58,6 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(body).subscribe({
       next: () => {
-        
         this.router.navigateByUrl('/login');
       },
       error: (res) => {

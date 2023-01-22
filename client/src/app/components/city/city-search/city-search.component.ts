@@ -1,8 +1,10 @@
+import { environment } from './../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { City } from 'src/app/models';
-import { AlertService } from 'src/app/services';
+import { AlertService, AuthService } from 'src/app/services';
 import { CityService } from 'src/app/services/city.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -24,7 +26,9 @@ export class CitySearchComponent implements OnInit, OnDestroy {
     private cityService: CityService,
     private alertService: AlertService,
     private sessionService: SessionService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   get f() {
@@ -68,20 +72,28 @@ export class CitySearchComponent implements OnInit, OnDestroy {
   onAdd(cityId: number, modal: any) {
     this.modalService.open(modal);
 
+    this.cityService.search({ byName: 'sydney', commentsLimit: 0 });
+
     this.sessionService.put('cityId', cityId);
   }
 
-  onAddComment() {
+  onAddComment(modal: any) {
     this.isSubmitted = true;
 
     this.alertService.clear();
 
     if (this.addForm.invalid) return;
 
-    this.cityService.addComment(
-      this.sessionService.get('cityId'),
-      this.af.description.value
-    );
+    this.cityService
+      .addComment(this.sessionService.get('cityId'), this.af.description.value)
+      .subscribe({
+        next: (res) => {
+          this.search();
+
+          modal.dismiss('close modal');
+        },
+        error: () => {},
+      });
 
     this.isSubmitted = false;
   }
@@ -109,6 +121,4 @@ export class CitySearchComponent implements OnInit, OnDestroy {
 
     return true;
   }
-
-  private openModal() {}
 }

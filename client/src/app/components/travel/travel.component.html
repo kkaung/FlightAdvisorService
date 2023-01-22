@@ -160,7 +160,7 @@
 <div *ngIf="trips.length != 0">
   <div *ngFor="let trip of trips" class="card mt-4 p-3">
     <div class="flex space-x-4">
-      <div class="flex-1">
+      <div class="flex-3">
         <div class="flex items-center text-sm space-x-2">
           <div>
             {{ trip.start?.name }}
@@ -173,16 +173,16 @@
           </div>
         </div>
         <div *ngFor="let stop of trip.through">
-            <div class="text-sm">{{stop.name}}📍</div>
+          <div class="text-sm">{{ stop.name }}📍</div>
         </div>
       </div>
-      <div class="text-center">
+      <div class="text-center flex-1">
         <div class="font-semibold">
           {{ trip.distance?.total }}{{ trip.distance?.in }}
         </div>
         <div class="text-sm">{{ trip.through?.length }} stop<span>s</span></div>
       </div>
-      <div class="text-xl font-bold">
+      <div class="text-xl font-bold flex-1 text-center">
         <span>{{ trip.price?.currency }}$</span>{{ trip.price?.total }}
       </div>
     </div>

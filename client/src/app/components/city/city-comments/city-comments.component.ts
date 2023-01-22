@@ -3,7 +3,7 @@ import { City, User } from 'src/app/models';
 import { DatePipe } from '@angular/common';
 import { SessionService } from 'src/app/services/session.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService, AuthService } from 'src/app/services';
 import { CityService } from 'src/app/services/city.service';
 

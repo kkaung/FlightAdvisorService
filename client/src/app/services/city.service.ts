@@ -46,17 +46,25 @@ export class CityService {
   addComment(cityId: number, comment: string) {
     const token = this.authService.getToken();
 
-    console.log(cityId, comment);
-
     return this.http
-      .post<Response<City>>(
+      .post<Response<City[]>>(
         `${environment.apiKey}/api/cities/${cityId}/comments`,
-        {
-          body: comment,
-        },
+        { body: comment },
         { headers: { Authorization: 'Bearer ' + token } }
       )
-      .pipe(map((res: Response<City>) => res.data));
+      .pipe(map((res: Response<City[]>) => res.data));
+  }
+
+  addCommentInCity(cityId: number, comment: string) {
+    const token = this.authService.getToken();
+
+    return this.http
+      .post<Response<City[]>>(
+        `${environment.apiKey}/api/cities/${cityId}/comments`,
+        { body: comment },
+        { headers: { Authorization: 'Bearer ' + token } }
+      )
+      .pipe(map((res: Response<City[]>) => res.data));
   }
 
   deleteComment(cityId: number, commentId: number) {
