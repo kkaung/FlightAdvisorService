@@ -6,7 +6,7 @@ public class DataContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<City> Cities { get; set; }
-    public DbSet<Ariport> Ariports { get; set; }
+    public DbSet<Airport> Airports { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Trip> Trips { get; set; }
 

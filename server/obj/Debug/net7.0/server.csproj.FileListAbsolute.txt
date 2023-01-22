@@ -147,7 +147,5 @@
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/Debug/net7.0/server.genruntimeconfig.cache
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/obj/Debug/net7.0/ref/server.dll
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Data/AirportSeed.json
-/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/MySqlConnector.dll
-/Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Npgsql.dll
 /Users/moongoblin/Documents/Developments/MateFlightAdvisor/server/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

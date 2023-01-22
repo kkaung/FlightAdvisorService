@@ -17,12 +17,12 @@ namespace server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AriportTrip", b =>
+            modelBuilder.Entity("AirportTrip", b =>
                 {
                     b.Property<int>("ThroughAirportId")
                         .HasColumnType("integer");
@@ -34,10 +34,10 @@ namespace server.Migrations
 
                     b.HasIndex("TripsId");
 
-                    b.ToTable("AriportTrip");
+                    b.ToTable("AirportTrip");
                 });
 
-            modelBuilder.Entity("FlightAdvisorService.Models.Ariport", b =>
+            modelBuilder.Entity("FlightAdvisorService.Models.Airport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace server.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Ariports");
+                    b.ToTable("Airports");
                 });
 
             modelBuilder.Entity("FlightAdvisorService.Models.City", b =>
@@ -200,9 +200,9 @@ namespace server.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AriportTrip", b =>
+            modelBuilder.Entity("AirportTrip", b =>
                 {
-                    b.HasOne("FlightAdvisorService.Models.Ariport", null)
+                    b.HasOne("FlightAdvisorService.Models.Airport", null)
                         .WithMany()
                         .HasForeignKey("ThroughAirportId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -215,7 +215,7 @@ namespace server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FlightAdvisorService.Models.Ariport", b =>
+            modelBuilder.Entity("FlightAdvisorService.Models.Airport", b =>
                 {
                     b.HasOne("FlightAdvisorService.Models.City", null)
                         .WithMany("Airports")

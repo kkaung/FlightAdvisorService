@@ -64,7 +64,7 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ariports",
+                name: "Airports",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -79,9 +79,9 @@ namespace server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ariports", x => x.Id);
+                    table.PrimaryKey("PK_Airports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ariports_Cities_CityId",
+                        name: "FK_Airports_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
@@ -118,7 +118,7 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AriportTrip",
+                name: "AirportTrip",
                 columns: table => new
                 {
                     ThroughAirportId = table.Column<int>(type: "integer", nullable: false),
@@ -126,15 +126,15 @@ namespace server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AriportTrip", x => new { x.ThroughAirportId, x.TripsId });
+                    table.PrimaryKey("PK_AirportTrip", x => new { x.ThroughAirportId, x.TripsId });
                     table.ForeignKey(
-                        name: "FK_AriportTrip_Ariports_ThroughAirportId",
+                        name: "FK_AirportTrip_Airports_ThroughAirportId",
                         column: x => x.ThroughAirportId,
-                        principalTable: "Ariports",
+                        principalTable: "Airports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AriportTrip_Trips_TripsId",
+                        name: "FK_AirportTrip_Trips_TripsId",
                         column: x => x.TripsId,
                         principalTable: "Trips",
                         principalColumn: "Id",
@@ -142,13 +142,13 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ariports_CityId",
-                table: "Ariports",
+                name: "IX_Airports_CityId",
+                table: "Airports",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AriportTrip_TripsId",
-                table: "AriportTrip",
+                name: "IX_AirportTrip_TripsId",
+                table: "AirportTrip",
                 column: "TripsId");
 
             migrationBuilder.CreateIndex(
@@ -166,13 +166,13 @@ namespace server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AriportTrip");
+                name: "AirportTrip");
 
             migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Ariports");
+                name: "Airports");
 
             migrationBuilder.DropTable(
                 name: "Trips");

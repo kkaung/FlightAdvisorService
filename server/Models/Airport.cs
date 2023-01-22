@@ -1,6 +1,6 @@
 namespace FlightAdvisorService.Models;
 
-public class Ariport
+public class Airport
 {
     public int Id { get; set; }
     public string Name { get; set; } = String.Empty;
